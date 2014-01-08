@@ -1,0 +1,77 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/activity_bg"
+    android:orientation="vertical" >
+
+    <!-- 上边主页面 -->
+
+    <fragment
+        android:id="@+id/fragement_main"
+        android:name="com.dengmin.app.FragmentMain"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10" />
+
+    <fragment
+        android:id="@+id/fragement_news"
+        android:name="com.dengmin.app.FragmentNews"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10" />
+
+    <fragment
+        android:id="@+id/fragement_info"
+        android:name="com.dengmin.app.FragmentInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10" />
+    
+    <fragment
+        android:id="@+id/fragement_more"
+        android:name="com.dengmin.app.FragmentMore"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="10" />
+
+    <!-- 底部菜单页面 -->
+
+    <RadioGroup
+        android:id="@+id/main_tab"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center_vertical"
+        android:background="@drawable/maintab_toolbar_bg"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:layout_marginTop="2.0dip"
+            android:id="@+id/tab_home"
+            style="@style/main_tab_bottom"
+            android:checked="true"
+            android:drawableTop="@drawable/icon_1_n"
+            android:text="@string/main_home" />
+
+        <RadioButton 
+    			android:layout_marginTop="2.0dip"
+    			android:text="@string/main_news"
+    			android:drawableTop="@drawable/icon_2_n"
+    			android:id="@+id/tab_news"
+    			style="@style/main_tab_bottom"/>
+    		<RadioButton 
+    			android:layout_marginTop="2.0dip"
+    			android:text="@string/main_my_info"
+    			android:drawableTop="@drawable/icon_3_n"
+    			android:id="@+id/tab_info"
+    			style="@style/main_tab_bottom"/>
+    		<RadioButton 
+    			android:layout_marginTop="2.0dip"
+    			android:text="@string/more"
+    			android:drawableTop="@drawable/icon_5_n"
+    			android:id="@+id/tab_more"
+    			style="@style/main_tab_bottom"/>
+    </RadioGroup>
+
+</LinearLayout>
