@@ -9,28 +9,28 @@
 
     <fragment
         android:id="@+id/fragement_main"
-        android:name="com.dengmin.app.FragmentMain"
+        android:name="com.dengmin.app.fragment.FragmentMain"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="10" />
 
     <fragment
         android:id="@+id/fragement_news"
-        android:name="com.dengmin.app.FragmentNews"
+        android:name="com.dengmin.app.fragment.FragmentNews"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="10" />
 
     <fragment
         android:id="@+id/fragement_info"
-        android:name="com.dengmin.app.FragmentInfo"
+        android:name="com.dengmin.app.fragment.FragmentInfo"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="10" />
     
-    <fragment
+  	<fragment
         android:id="@+id/fragement_more"
-        android:name="com.dengmin.app.FragmentMore"
+        android:name="com.dengmin.app.fragment.FragmentMore"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="10" />
