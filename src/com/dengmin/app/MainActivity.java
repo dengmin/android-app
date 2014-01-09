@@ -11,6 +11,8 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class MainActivity extends FragmentActivity {
 
+    private long touchTime = 0;    
+    
 	private Fragment[] mFragments;
 	private RadioGroup main_tab;
 	private FragmentManager fragmentManager;
@@ -62,6 +64,21 @@ public class MainActivity extends FragmentActivity {
 			}
 			
 		});
+	}
+
+    @Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(event.getAction() == KeyEvent.ACTION_DOWN && KeyEvent.KEYCODE_BACK == keyCode) {
+			long currentTime = System.currentTimeMillis();
+			if((currentTime-touchTime) >= 2000) {
+				Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+				touchTime = currentTime;
+			}else {
+				finish();
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 }
