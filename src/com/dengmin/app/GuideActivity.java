@@ -3,11 +3,14 @@ package com.dengmin.app;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -20,9 +23,10 @@ public class GuideActivity extends Activity implements OnClickListener, OnPageCh
 	private ViewPagerAdapter vAdapter;
 	private ArrayList<View> views;
 	
+	private Button btn_start;
+	
 	//引导图片资源
-    private static final int[] pics = {R.drawable.guide_01,R.drawable.guide_02,
-    	R.drawable.guide_03,R.drawable.guide_04};
+    private static final int[] pics = {R.drawable.guide_01,R.drawable.guide_02, R.drawable.guide_03};
     
     //底部小点的图片
     private ImageView[] points;
@@ -49,23 +53,32 @@ public class GuideActivity extends Activity implements OnClickListener, OnPageCh
 	}
 	
 	private void initData(){
-		//定义一个布局并设置参数
-		LinearLayout.LayoutParams mParams = new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT);
+		LayoutInflater mLi = LayoutInflater.from(this);
+		for(int i=0; i< pics.length; i++){
+			View view = mLi.inflate(R.layout.guide_view, null);
+			view.setBackgroundResource(pics[i]);
+			views.add(view);
+		}
+		View startView = mLi.inflate(R.layout.guide_view_last, null);
+		views.add(startView);
 		
-		//初始化引导图片列表
-        for(int i=0; i<pics.length; i++) {
-            ImageView iv = new ImageView(this);
-            iv.setLayoutParams(mParams);
-            iv.setImageResource(pics[i]);
-            views.add(iv);
-        } 
+		btn_start = (Button)startView.findViewById(R.id.startBtn);
+		
 		// 设置监听
 		viewPager.setOnPageChangeListener(this);
 		// 设置适配器数据
 		viewPager.setAdapter(vAdapter);
 		
 		initPoint();
+		
+		btn_start.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(GuideActivity.this, MainActivity.class);
+				startActivity(intent);
+				finish();
+			}
+		});
 	}
 	
 	/**

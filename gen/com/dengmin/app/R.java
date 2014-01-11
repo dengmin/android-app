@@ -23,39 +23,45 @@ public final class R {
     }
     public static final class drawable {
         public static final int activity_bg=0x7f020000;
-        public static final int guide_01=0x7f020001;
-        public static final int guide_02=0x7f020002;
-        public static final int guide_03=0x7f020003;
-        public static final int guide_04=0x7f020004;
-        public static final int home_btn_bg=0x7f020005;
-        public static final int home_btn_bg_d=0x7f020006;
-        public static final int home_btn_bg_n=0x7f020007;
-        public static final int home_btn_bg_s=0x7f020008;
-        public static final int ic_launcher=0x7f020009;
-        public static final int icon_1_n=0x7f02000a;
-        public static final int icon_2_n=0x7f02000b;
-        public static final int icon_3_n=0x7f02000c;
-        public static final int icon_4_n=0x7f02000d;
-        public static final int icon_5_n=0x7f02000e;
-        public static final int maintab_toolbar_bg=0x7f02000f;
-        public static final int point=0x7f020010;
-        public static final int point_normal=0x7f020011;
-        public static final int point_select=0x7f020012;
-        public static final int splash_background=0x7f020013;
-        public static final int transparent=0x7f020014;
+        public static final int btn_start=0x7f020001;
+        public static final int guide_01=0x7f020002;
+        public static final int guide_02=0x7f020003;
+        public static final int guide_03=0x7f020004;
+        public static final int guide_04=0x7f020005;
+        public static final int home_btn_bg=0x7f020006;
+        public static final int home_btn_bg_d=0x7f020007;
+        public static final int home_btn_bg_n=0x7f020008;
+        public static final int home_btn_bg_s=0x7f020009;
+        public static final int ic_launcher=0x7f02000a;
+        public static final int icon_1_n=0x7f02000b;
+        public static final int icon_2_n=0x7f02000c;
+        public static final int icon_3_n=0x7f02000d;
+        public static final int icon_4_n=0x7f02000e;
+        public static final int icon_5_n=0x7f02000f;
+        public static final int login_button=0x7f020010;
+        public static final int login_button_select=0x7f020011;
+        public static final int maintab_toolbar_bg=0x7f020012;
+        public static final int point=0x7f020013;
+        public static final int point_normal=0x7f020014;
+        public static final int point_select=0x7f020015;
+        public static final int splash_background=0x7f020016;
+        public static final int transparent=0x7f020018;
+        public static final int widget_head_bg=0x7f020017;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000b;
-        public static final int fragement_info=0x7f080004;
-        public static final int fragement_main=0x7f080002;
-        public static final int fragement_more=0x7f080005;
-        public static final int fragement_news=0x7f080003;
+        public static final int action_settings=0x7f08000d;
+        public static final int fragement_info=0x7f080005;
+        public static final int fragement_main=0x7f080003;
+        public static final int fragement_more=0x7f080006;
+        public static final int fragement_news=0x7f080004;
         public static final int ll=0x7f080001;
-        public static final int main_tab=0x7f080006;
-        public static final int tab_home=0x7f080007;
-        public static final int tab_info=0x7f080009;
-        public static final int tab_more=0x7f08000a;
-        public static final int tab_news=0x7f080008;
+        public static final int main_tab=0x7f080007;
+        public static final int startBtn=0x7f080002;
+        public static final int tab_home=0x7f080008;
+        public static final int tab_info=0x7f08000a;
+        public static final int tab_more=0x7f08000b;
+        public static final int tab_news=0x7f080009;
+        public static final int titleTv=0x7f08000c;
         public static final int viewpager=0x7f080000;
     }
     public static final class layout {
@@ -64,8 +70,11 @@ public final class R {
         public static final int fragment_more=0x7f030002;
         public static final int fragment_news=0x7f030003;
         public static final int guide=0x7f030004;
-        public static final int main=0x7f030005;
-        public static final int splash=0x7f030006;
+        public static final int guide_view=0x7f030005;
+        public static final int guide_view_last=0x7f030006;
+        public static final int main=0x7f030007;
+        public static final int splash=0x7f030008;
+        public static final int titlebar=0x7f030009;
     }
     public static final class menu {
         public static final int main=0x7f070000;

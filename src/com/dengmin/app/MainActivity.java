@@ -25,7 +25,6 @@ public class MainActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
-		
 		mFragments = new Fragment[4];
 		fragmentManager = getSupportFragmentManager();
 		mFragments[0] = fragmentManager.findFragmentById(R.id.fragement_main);
