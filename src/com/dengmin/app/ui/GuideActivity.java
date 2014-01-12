@@ -88,10 +88,9 @@ public class GuideActivity extends Activity implements OnClickListener, OnPageCh
 	private void initPoint(){
 		LinearLayout linearLayout = (LinearLayout) findViewById(R.id.ll);       
 		
-        points = new ImageView[pics.length];
-
+        points = new ImageView[pics.length + 1];
         //循环取得小点图片
-        for (int i = 0; i < pics.length; i++) {
+        for (int i = 0; i < points.length; i++) {
         	//得到一个LinearLayout下面的每一个子元素
         	points[i] = (ImageView) linearLayout.getChildAt(i);
         	//默认都设为灰色
@@ -132,7 +131,7 @@ public class GuideActivity extends Activity implements OnClickListener, OnPageCh
 	 * 设置当前页面的位置
 	 */
 	private void setCurView(int position){
-         if (position < 0 || position >= pics.length) {
+         if (position < 0 || position >= points.length) {
              return;
          }
          viewPager.setCurrentItem(position);
@@ -142,7 +141,7 @@ public class GuideActivity extends Activity implements OnClickListener, OnPageCh
      * 设置当前的小点的位置
      */
     private void setCurDot(int positon){
-         if (positon < 0 || positon > pics.length - 1 || currentIndex == positon) {
+         if (positon < 0 || positon > points.length - 1 || currentIndex == positon) {
              return;
          }
          points[positon].setEnabled(false);
