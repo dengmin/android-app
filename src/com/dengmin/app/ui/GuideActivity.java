@@ -1,4 +1,4 @@
-package com.dengmin.app;
+package com.dengmin.app.ui;
 
 import java.util.ArrayList;
 
@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.dengmin.app.R;
 import com.dengmin.app.adapter.ViewPagerAdapter;
 
 public class GuideActivity extends Activity implements OnClickListener, OnPageChangeListener{

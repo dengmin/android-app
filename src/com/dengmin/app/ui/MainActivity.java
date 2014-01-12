@@ -1,4 +1,4 @@
-package com.dengmin.app;
+package com.dengmin.app.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,8 @@ import android.view.Window;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
+
+import com.dengmin.app.R;
 
 public class MainActivity extends FragmentActivity {
 

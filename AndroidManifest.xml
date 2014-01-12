@@ -37,7 +37,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name">
         <activity
-            android:name="com.dengmin.app.SplashActivity"
+            android:name="com.dengmin.app.ui.SplashActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
@@ -46,8 +46,8 @@
             </intent-filter>
         </activity>
         
-        <activity android:name="com.dengmin.app.MainActivity" />
-        <activity android:name="com.dengmin.app.GuideActivity"
+        <activity android:name="com.dengmin.app.ui.MainActivity" />
+        <activity android:name="com.dengmin.app.ui.GuideActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         
          <!-- Required -->
