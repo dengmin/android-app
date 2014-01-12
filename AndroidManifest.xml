@@ -50,6 +50,7 @@
         <activity android:name="com.dengmin.app.ui.GuideActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         
+        <service android:name="com.dengmin.app.NetworkStateService" android:enabled="true"></service>        
          <!-- Required -->
         <service
             android:name="cn.jpush.android.service.PushService"

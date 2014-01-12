@@ -1,6 +1,12 @@
 package com.dengmin.app.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -11,6 +17,8 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
+import com.dengmin.app.Action;
+import com.dengmin.app.NetworkStateService;
 import com.dengmin.app.R;
 
 public class MainActivity extends FragmentActivity {
@@ -21,6 +29,18 @@ public class MainActivity extends FragmentActivity {
 	private RadioGroup main_tab;
 	private FragmentManager fragmentManager;
 	private FragmentTransaction fragmentTransaction;
+	
+	private Handler networkStateHandler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch(msg.what){
+			case -1:
+				Toast.makeText(MainActivity.this, "当前网络连接不可用,请检查你的网络设置.", Toast.LENGTH_LONG).show(); 
+				break;
+			}
+		}
+	};
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +57,11 @@ public class MainActivity extends FragmentActivity {
 			.hide(mFragments[1]).hide(mFragments[2]).hide(mFragments[3]);
 		fragmentTransaction.show(mFragments[0]).commit();
 		setFragmentIndicator();
+		
+		registerReceiver(new NetworkStateReceiver(), new IntentFilter(Action.NETWORK_STATE));
+		
+		Intent networkService =new Intent(MainActivity.this,NetworkStateService.class);
+		startService(networkService);
 	}
 
 	private void setFragmentIndicator() {
@@ -84,4 +109,18 @@ public class MainActivity extends FragmentActivity {
 		return super.onKeyDown(keyCode, event);
 	}
 
+    //用来接受从service中监测到的网络状态
+    class NetworkStateReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			boolean state = intent.getBooleanExtra("state", false);
+			if(state){
+				networkStateHandler.sendEmptyMessage(1);
+			}else{
+				networkStateHandler.sendEmptyMessage(-1);
+			}
+			
+		}
+    }
+    
 }
