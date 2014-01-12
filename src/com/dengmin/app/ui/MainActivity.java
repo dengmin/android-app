@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,7 +23,10 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.dengmin.app.Action;
+import com.dengmin.app.AppException;
 import com.dengmin.app.R;
+import com.dengmin.app.http.APIClient;
+import com.dengmin.app.model.AppUpgrade;
 import com.dengmin.app.service.NetworkStateService;
 import com.dengmin.app.service.UpgradeService;
 
@@ -35,7 +40,7 @@ public class MainActivity extends FragmentActivity {
 	private FragmentTransaction fragmentTransaction;
 	
 	private NetworkStateReceiver networkStateReceiver;
-	
+	private int curVersionCode;
 	private Handler networkStateHandler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
@@ -131,31 +136,74 @@ public class MainActivity extends FragmentActivity {
 		}
     }
     
-    private void checkVersion(){
-    	AlertDialog.Builder alert = new AlertDialog.Builder(this);
-    	alert.setTitle("软件升级");
-    	alert.setMessage("发现新版本,建议立即更新使用.");
-    	alert.setPositiveButton("立即更新", new OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-				Intent upgradeIntent = new Intent(MainActivity.this, UpgradeService.class);
-				startService(upgradeIntent);
-			}
-		});
-		alert.setNegativeButton("以后再说", new OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				dialog.dismiss();
-			}
-		});
-		alert.create().show();
-    }
-    
     @Override
     protected void onDestroy() {
     	super.onDestroy();
     	unregisterReceiver(networkStateReceiver);
     }
+    
+	private void checkVersion(){
+		getCurrentVersion();
+		final Handler handler = new Handler() {
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+					AppUpgrade update = (AppUpgrade) msg.obj;
+					if (null != update) {
+						if (curVersionCode < update.getVersion_code()) {
+							showAlert();
+						}
+					}
+				}
+			}
+		};
+		
+		new Thread() {
+			public void run() {
+				Message msg = new Message();
+				try {
+					//获取软件更新信息
+					AppUpgrade update = APIClient.checkVersion();
+					msg.obj = update;
+					msg.what = 1;
+					handler.sendMessage(msg);
+				} catch (AppException e) {
+					e.printStackTrace();
+				}
+			}
+		}.start();
+	}
+	
+	/**
+	 * 获取当前客户端版本信息
+	 */
+	private void getCurrentVersion() {
+		try {
+			PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
+			curVersionCode = info.versionCode;
+		} catch (NameNotFoundException e) {
+			e.printStackTrace(System.err);
+		}
+	}
+	
+	private void showAlert(){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle("软件升级");
+        alert.setMessage("发现新版本,建议立即更新使用.");
+        alert.setPositiveButton("立即更新", new OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                Intent upgradeIntent = new Intent(MainActivity.this, UpgradeService.class);
+                startService(upgradeIntent);
+            }
+        });
+        alert.setNegativeButton("以后再说", new OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.create().show();
+	}
     
 }
