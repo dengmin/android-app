@@ -1,7 +1,10 @@
 package com.dengmin.app.ui;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -18,8 +21,9 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.dengmin.app.Action;
-import com.dengmin.app.NetworkStateService;
 import com.dengmin.app.R;
+import com.dengmin.app.service.NetworkStateService;
+import com.dengmin.app.service.UpgradeService;
 
 public class MainActivity extends FragmentActivity {
 
@@ -29,6 +33,8 @@ public class MainActivity extends FragmentActivity {
 	private RadioGroup main_tab;
 	private FragmentManager fragmentManager;
 	private FragmentTransaction fragmentTransaction;
+	
+	private NetworkStateReceiver networkStateReceiver;
 	
 	private Handler networkStateHandler = new Handler(){
 		@Override
@@ -58,10 +64,13 @@ public class MainActivity extends FragmentActivity {
 		fragmentTransaction.show(mFragments[0]).commit();
 		setFragmentIndicator();
 		
-		registerReceiver(new NetworkStateReceiver(), new IntentFilter(Action.NETWORK_STATE));
-		
+		networkStateReceiver = new NetworkStateReceiver();
+		registerReceiver(networkStateReceiver, new IntentFilter(Action.NETWORK_STATE));
+		//网络状态监测服务
 		Intent networkService =new Intent(MainActivity.this,NetworkStateService.class);
 		startService(networkService);
+		
+		checkVersion();
 	}
 
 	private void setFragmentIndicator() {
@@ -119,8 +128,34 @@ public class MainActivity extends FragmentActivity {
 			}else{
 				networkStateHandler.sendEmptyMessage(-1);
 			}
-			
 		}
+    }
+    
+    private void checkVersion(){
+    	AlertDialog.Builder alert = new AlertDialog.Builder(this);
+    	alert.setTitle("软件升级");
+    	alert.setMessage("发现新版本,建议立即更新使用.");
+    	alert.setPositiveButton("立即更新", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				Intent upgradeIntent = new Intent(MainActivity.this, UpgradeService.class);
+				startService(upgradeIntent);
+			}
+		});
+		alert.setNegativeButton("以后再说", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+			}
+		});
+		alert.create().show();
+    }
+    
+    @Override
+    protected void onDestroy() {
+    	super.onDestroy();
+    	unregisterReceiver(networkStateReceiver);
     }
     
 }

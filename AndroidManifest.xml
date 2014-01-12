@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dengmin.app"
-    android:versionCode="1"
+    android:versionCode="2"
     android:versionName="1.0" >
 
     <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="17" />
@@ -50,8 +50,10 @@
         <activity android:name="com.dengmin.app.ui.GuideActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         
-        <service android:name="com.dengmin.app.NetworkStateService" android:enabled="true"></service>        
-         <!-- Required -->
+        <service android:name="com.dengmin.app.service.NetworkStateService" android:enabled="true" />
+        <service android:name="com.dengmin.app.service.UpgradeService" android:enabled="true" />        
+        
+        <!-- Required -->
         <service
             android:name="cn.jpush.android.service.PushService"
             android:enabled="true"
