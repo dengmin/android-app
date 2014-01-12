@@ -16,15 +16,13 @@ public class FragmentMore extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View root = inflater.inflate(R.layout.fragment_more, container, false);
-		
-		title_text = (TextView) root.findViewById(R.id.title_text);
-		title_text.setText("更多");
-		return root;
+		return inflater.inflate(R.layout.fragment_more, container, false);
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		title_text = (TextView) getView().findViewById(R.id.title_text);
+		title_text.setText("更多");
 	}
 }

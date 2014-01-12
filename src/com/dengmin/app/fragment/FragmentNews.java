@@ -18,18 +18,16 @@ public class FragmentNews extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View root = inflater.inflate(R.layout.fragment_news, container, false);
-		
-		title_text = (TextView) root.findViewById(R.id.title_text);
-		title_text.setText("信息");
-		btn_right = (Button)root.findViewById(R.id.btn_title_right);
-		btn_right.setText("添加");
-		btn_right.setVisibility(View.VISIBLE);
-		return root;
+		return inflater.inflate(R.layout.fragment_news, container, false);
 	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		title_text = (TextView) getView().findViewById(R.id.title_text);
+		title_text.setText("信息");
+		btn_right = (Button) getView().findViewById(R.id.btn_title_right);
+		btn_right.setText("添加");
+		btn_right.setVisibility(View.VISIBLE);
 	}
 }

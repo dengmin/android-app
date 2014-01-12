@@ -20,22 +20,20 @@ public class FragmentInfo extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View root = inflater.inflate(R.layout.fragment_info, container, false);
-		title_text = (TextView) root.findViewById(R.id.title_text);
+		return inflater.inflate(R.layout.fragment_info, container, false);
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		title_text = (TextView) getView().findViewById(R.id.title_text);
 		title_text.setText("我的资料");
-		btn_back = (Button) root.findViewById(R.id.btn_title_left);
+		btn_back = (Button) getView().findViewById(R.id.btn_title_left);
 		btn_back.setVisibility(View.VISIBLE);
 		btn_back.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
 			}
 		});
-		return root;
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		
 	}
 }

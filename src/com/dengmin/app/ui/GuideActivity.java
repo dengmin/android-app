@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -77,6 +79,10 @@ public class GuideActivity extends Activity implements OnClickListener, OnPageCh
 			public void onClick(View v) {
 				Intent intent = new Intent(GuideActivity.this, MainActivity.class);
 				startActivity(intent);
+				SharedPreferences prefer = getSharedPreferences("app", MODE_MULTI_PROCESS);
+				Editor editor = prefer.edit();
+				editor.putBoolean("first_use", false);
+				editor.commit();
 				finish();
 			}
 		});

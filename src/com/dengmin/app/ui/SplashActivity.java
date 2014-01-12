@@ -3,7 +3,6 @@ package com.dengmin.app.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -16,7 +15,7 @@ import com.dengmin.app.R;
 public class SplashActivity extends Activity {
 
 	private boolean isFirst;
-	private SharedPreferences prefer;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,7 +26,7 @@ public class SplashActivity extends Activity {
 		aa.setDuration(2000);
 		view.startAnimation(aa);
 		
-		prefer = getSharedPreferences("app", MODE_MULTI_PROCESS);
+		SharedPreferences prefer = getSharedPreferences("app", MODE_MULTI_PROCESS);
 		isFirst = prefer.getBoolean("first_use", true);
 		aa.setAnimationListener(new AnimationListener()
 		{
@@ -51,9 +50,6 @@ public class SplashActivity extends Activity {
 				Intent intent = null;
 				if(isFirst){
 					intent = new Intent(SplashActivity.this,GuideActivity.class);
-					Editor editor = prefer.edit();
-					editor.putBoolean("first_use", false);
-					editor.commit();
 				}else{
 					intent = new Intent(SplashActivity.this,MainActivity.class);
 				}
