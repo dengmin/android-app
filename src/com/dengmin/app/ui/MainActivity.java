@@ -1,5 +1,6 @@
 package com.dengmin.app.ui;
 
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -41,6 +42,9 @@ public class MainActivity extends FragmentActivity {
 	
 	private NetworkStateReceiver networkStateReceiver;
 	private int curVersionCode;
+	
+	private Intent networkStateIntent;
+	
 	private Handler networkStateHandler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
@@ -71,9 +75,10 @@ public class MainActivity extends FragmentActivity {
 		
 		networkStateReceiver = new NetworkStateReceiver();
 		registerReceiver(networkStateReceiver, new IntentFilter(Action.NETWORK_STATE));
+		
 		//网络状态监测服务
-		Intent networkService =new Intent(MainActivity.this,NetworkStateService.class);
-		startService(networkService);
+		networkStateIntent =new Intent(MainActivity.this,NetworkStateService.class);
+		startService(networkStateIntent);
 		
 		checkVersion();
 	}
@@ -117,6 +122,8 @@ public class MainActivity extends FragmentActivity {
 				touchTime = currentTime;
 			}else {
 				finish();
+				ActivityManager manager = (ActivityManager) getSystemService(ACTIVITY_SERVICE);
+				manager.killBackgroundProcesses(getPackageName());
 			}
 			return true;
 		}
@@ -140,6 +147,7 @@ public class MainActivity extends FragmentActivity {
     protected void onDestroy() {
     	super.onDestroy();
     	unregisterReceiver(networkStateReceiver);
+    	stopService(networkStateIntent);
     }
     
 	private void checkVersion(){
