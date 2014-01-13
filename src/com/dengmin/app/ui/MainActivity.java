@@ -45,6 +45,8 @@ public class MainActivity extends FragmentActivity {
 	
 	private Intent networkStateIntent;
 	
+	private Intent upgradeIntent = null;
+	
 	private Handler networkStateHandler = new Handler(){
 		@Override
 		public void handleMessage(Message msg) {
@@ -148,6 +150,9 @@ public class MainActivity extends FragmentActivity {
     	super.onDestroy();
     	unregisterReceiver(networkStateReceiver);
     	stopService(networkStateIntent);
+    	if(upgradeIntent != null){
+    		stopService(upgradeIntent);
+    	}
     }
     
 	private void checkVersion(){
@@ -201,7 +206,7 @@ public class MainActivity extends FragmentActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
-                Intent upgradeIntent = new Intent(MainActivity.this, UpgradeService.class);
+                upgradeIntent = new Intent(MainActivity.this, UpgradeService.class);
                 startService(upgradeIntent);
             }
         });
