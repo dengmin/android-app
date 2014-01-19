@@ -9,22 +9,6 @@ package com.dengmin.app;
 
 public final class R {
     public static final class attr {
-        /** <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-<p>May be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>May be an integer value, such as "<code>100</code>".
-<p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>May be a floating point value, such as "<code>1.2</code>".
-<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
-Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
-in (inches), mm (millimeters).
-<p>May be a fractional value, which is a floating point number appended with either % or %p, such as "<code>14.5%</code>".
-The % suffix always means a percentage of the base size; the optional %p suffix provides a size relative to
-some parent container.
-         */
-        public static final int auto_play=0x7f010000;
     }
     public static final class dimen {
         /** 
@@ -81,37 +65,40 @@ some parent container.
         public static final int transparent=0x7f020028;
     }
     public static final class id {
-        public static final int RelativeLayout1=0x7f080000;
-        public static final int action_settings=0x7f080012;
-        public static final int btn_title_left=0x7f08000f;
-        public static final int btn_title_right=0x7f080010;
-        public static final int fragement_info=0x7f080008;
-        public static final int fragement_main=0x7f080006;
-        public static final int fragement_more=0x7f080009;
-        public static final int fragement_news=0x7f080007;
-        public static final int ll=0x7f080004;
-        public static final int main_tab=0x7f08000a;
-        public static final int slidingLayout=0x7f080001;
-        public static final int startBtn=0x7f080005;
-        public static final int tab_home=0x7f08000b;
-        public static final int tab_info=0x7f08000d;
-        public static final int tab_more=0x7f08000e;
-        public static final int tab_news=0x7f08000c;
-        public static final int tableLayout_travel=0x7f080002;
-        public static final int title_text=0x7f080011;
-        public static final int viewpager=0x7f080003;
+        public static final int RelativeLayout1=0x7f080002;
+        public static final int action_settings=0x7f080014;
+        public static final int btn_title_left=0x7f080011;
+        public static final int btn_title_right=0x7f080012;
+        public static final int fragement_info=0x7f08000a;
+        public static final int fragement_main=0x7f080008;
+        public static final int fragement_more=0x7f08000b;
+        public static final int fragement_news=0x7f080009;
+        public static final int image=0x7f080000;
+        public static final int ll=0x7f080006;
+        public static final int loading=0x7f080001;
+        public static final int main_tab=0x7f08000c;
+        public static final int startBtn=0x7f080007;
+        public static final int tab_home=0x7f08000d;
+        public static final int tab_info=0x7f08000f;
+        public static final int tab_more=0x7f080010;
+        public static final int tab_news=0x7f08000e;
+        public static final int tableLayout_travel=0x7f080004;
+        public static final int title_text=0x7f080013;
+        public static final int viewpager=0x7f080005;
+        public static final int vp=0x7f080003;
     }
     public static final class layout {
-        public static final int fragment_info=0x7f030000;
-        public static final int fragment_main=0x7f030001;
-        public static final int fragment_more=0x7f030002;
-        public static final int fragment_news=0x7f030003;
-        public static final int guide=0x7f030004;
-        public static final int guide_view=0x7f030005;
-        public static final int guide_view_last=0x7f030006;
-        public static final int main=0x7f030007;
-        public static final int splash=0x7f030008;
-        public static final int titlebar=0x7f030009;
+        public static final int ads_image=0x7f030000;
+        public static final int fragment_info=0x7f030001;
+        public static final int fragment_main=0x7f030002;
+        public static final int fragment_more=0x7f030003;
+        public static final int fragment_news=0x7f030004;
+        public static final int guide=0x7f030005;
+        public static final int guide_view=0x7f030006;
+        public static final int guide_view_last=0x7f030007;
+        public static final int main=0x7f030008;
+        public static final int splash=0x7f030009;
+        public static final int titlebar=0x7f03000a;
     }
     public static final class menu {
         public static final int main=0x7f070000;
@@ -142,41 +129,4 @@ some parent container.
         public static final int AppBaseTheme=0x7f060001;
         public static final int main_tab_bottom=0x7f060000;
     }
-    public static final class styleable {
-        /** Attributes that can be used with a SlidingSwitcherView.
-           <p>Includes the following attributes:</p>
-           <table>
-           <colgroup align="left" />
-           <colgroup align="left" />
-           <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #SlidingSwitcherView_auto_play com.dengmin.app:auto_play}</code></td><td></td></tr>
-           </table>
-           @see #SlidingSwitcherView_auto_play
-         */
-        public static final int[] SlidingSwitcherView = {
-            0x7f010000
-        };
-        /**
-          <p>This symbol is the offset where the {@link com.dengmin.app.R.attr#auto_play}
-          attribute's value can be found in the {@link #SlidingSwitcherView} array.
-
-
-          <p>May be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
-or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-<p>May be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
-<p>May be an integer value, such as "<code>100</code>".
-<p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
-<p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
-"<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
-<p>May be a floating point value, such as "<code>1.2</code>".
-<p>May be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
-Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
-in (inches), mm (millimeters).
-<p>May be a fractional value, which is a floating point number appended with either % or %p, such as "<code>14.5%</code>".
-The % suffix always means a percentage of the base size; the optional %p suffix provides a size relative to
-some parent container.
-          @attr name android:auto_play
-        */
-        public static final int SlidingSwitcherView_auto_play = 0;
-    };
 }

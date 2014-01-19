@@ -41,7 +41,7 @@ public class UpgradeService extends Service{
 	//已下载文件大小
 	private String tmpFileSize;
 	
-	private String downloadUrl = "http://yomo-uploads.stor.sinaapp.com/transport_0.1.3.apk";
+	private String downloadUrl = "http://yomo-uploads.stor.sinaapp.com/App.apk";
 	
 	private boolean interceptFlag = false;
 	//进度值
