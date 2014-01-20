@@ -2,12 +2,9 @@ package com.dengmin.app.ui;
 
 import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
@@ -23,7 +20,6 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
-import com.dengmin.app.Action;
 import com.dengmin.app.AppException;
 import com.dengmin.app.R;
 import com.dengmin.app.http.APIClient;
@@ -40,24 +36,13 @@ public class MainActivity extends FragmentActivity {
 	private FragmentManager fragmentManager;
 	private FragmentTransaction fragmentTransaction;
 	
-	private NetworkStateReceiver networkStateReceiver;
 	private int curVersionCode;
 	
 	private Intent networkStateIntent;
 	
 	private Intent upgradeIntent = null;
 	
-	private Handler networkStateHandler = new Handler(){
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			switch(msg.what){
-			case -1:
-				Toast.makeText(MainActivity.this, "当前网络连接不可用,请检查你的网络设置.", Toast.LENGTH_LONG).show(); 
-				break;
-			}
-		}
-	};
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +59,6 @@ public class MainActivity extends FragmentActivity {
 			.hide(mFragments[1]).hide(mFragments[2]).hide(mFragments[3]);
 		fragmentTransaction.show(mFragments[0]).commit();
 		setFragmentIndicator();
-		
-		networkStateReceiver = new NetworkStateReceiver();
-		registerReceiver(networkStateReceiver, new IntentFilter(Action.NETWORK_STATE));
 		
 		//网络状态监测服务
 		networkStateIntent =new Intent(MainActivity.this,NetworkStateService.class);
@@ -132,23 +114,11 @@ public class MainActivity extends FragmentActivity {
 		return super.onKeyDown(keyCode, event);
 	}
 
-    //用来接受从service中监测到的网络状态
-    class NetworkStateReceiver extends BroadcastReceiver {
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			boolean state = intent.getBooleanExtra("state", false);
-			if(state){
-				networkStateHandler.sendEmptyMessage(1);
-			}else{
-				networkStateHandler.sendEmptyMessage(-1);
-			}
-		}
-    }
+    
     
     @Override
     protected void onDestroy() {
     	super.onDestroy();
-    	unregisterReceiver(networkStateReceiver);
     	stopService(networkStateIntent);
     	if(upgradeIntent != null){
     		stopService(upgradeIntent);

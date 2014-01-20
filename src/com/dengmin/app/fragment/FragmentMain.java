@@ -4,9 +4,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
@@ -17,7 +22,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.dengmin.app.Action;
 import com.dengmin.app.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -40,6 +47,37 @@ public class FragmentMain extends Fragment {
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
 	
 	private DisplayImageOptions options;
+	
+	private NetworkStateReceiver networkStateReceiver;
+	
+	private View networkStatelayout;
+	
+	//用来接受从service中监测到的网络状态
+    private class NetworkStateReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			boolean state = intent.getBooleanExtra("state", false);
+			if(state){
+				networkStateHandler.sendEmptyMessage(1);
+			}else{
+				networkStateHandler.sendEmptyMessage(-1);
+			}
+		}
+    }
+    
+    private Handler networkStateHandler = new Handler(){
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			switch(msg.what){
+			case -1:
+				networkStatelayout.setVisibility(View.VISIBLE);
+				Toast.makeText(getActivity(), "当前网络连接不可用,请检查你的网络设置.", Toast.LENGTH_LONG).show(); 
+				break;
+			}
+		}
+	};
+    
 	
 	// 切换当前显示的图片
 	private Handler handler = new Handler() {
@@ -74,7 +112,12 @@ public class FragmentMain extends Fragment {
 		// 设置一个监听器，当ViewPager中的页面改变时调用
 		viewPager.setOnPageChangeListener(new MyPageChangeListener());
 		
+		networkStatelayout = getView().findViewById(R.id.network_layout);
+		
 		scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
+		
+		networkStateReceiver = new NetworkStateReceiver();
+		getActivity().registerReceiver(networkStateReceiver, new IntentFilter(Action.NETWORK_STATE));
 	}
 
 	/**
@@ -176,5 +219,11 @@ public class FragmentMain extends Fragment {
 		// 当Activity不可见的时候停止切换
 		scheduledExecutorService.shutdown();
 		super.onStop();
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		getActivity().unregisterReceiver(networkStateReceiver);
 	}
 }
