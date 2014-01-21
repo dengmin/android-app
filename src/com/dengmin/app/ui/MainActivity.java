@@ -5,99 +5,111 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentTabHost;
 import android.view.KeyEvent;
-import android.view.Window;
-import android.widget.RadioGroup;
-import android.widget.RadioGroup.OnCheckedChangeListener;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TabHost.TabSpec;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dengmin.app.AppException;
 import com.dengmin.app.R;
+import com.dengmin.app.SystemApplication;
+import com.dengmin.app.fragment.FragmentInfo;
+import com.dengmin.app.fragment.FragmentMain;
+import com.dengmin.app.fragment.FragmentMore;
+import com.dengmin.app.fragment.FragmentNews;
 import com.dengmin.app.http.APIClient;
 import com.dengmin.app.model.AppUpgrade;
 import com.dengmin.app.service.NetworkStateService;
 import com.dengmin.app.service.UpgradeService;
 
-public class MainActivity extends FragmentActivity {
-
-    private long touchTime = 0;    
-    
-	private Fragment[] mFragments;
-	private RadioGroup main_tab;
-	private FragmentManager fragmentManager;
-	private FragmentTransaction fragmentTransaction;
+public class MainActivity extends FragmentActivity{
 	
-	private int curVersionCode;
+	private long touchTime = 0;
+	//定义FragmentTabHost对象
+	private FragmentTabHost mTabHost;
+	
+	//定义一个布局
+	private LayoutInflater layoutInflater;
+		
+	//定义数组来存放Fragment界面
+	private Class<?> fragmentArray[] = {FragmentMain.class,FragmentNews.class,FragmentInfo.class,FragmentMore.class};
+	
+	//定义数组来存放按钮图片
+	private int mImageViewArray[] = {R.drawable.tab_home_btn,R.drawable.tab_message_btn,R.drawable.tab_selfinfo_btn,
+									 R.drawable.tab_square_btn,R.drawable.tab_more_btn};
+	
+	//Tab选项卡的文字
+	private String mTextviewArray[] = {"首页", "消息", "好友", "更多"};
 	
 	private Intent networkStateIntent;
 	
 	private Intent upgradeIntent = null;
 	
+	private SystemApplication app;
 	
+	public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        
+        app = (SystemApplication)getApplication();
+        
+        initView();
+        
+        //网络状态监测服务
+  		networkStateIntent =new Intent(this,NetworkStateService.class);
+  		startService(networkStateIntent);
+  		
+  		checkVersion();
+    }
+	 
+	/**
+	 * 初始化组件
+	 */
+	private void initView(){
+		//实例化布局对象
+		layoutInflater = LayoutInflater.from(this);
+				
+		//实例化TabHost对象，得到TabHost
+		mTabHost = (FragmentTabHost)findViewById(android.R.id.tabhost);
+		mTabHost.setup(this, getSupportFragmentManager(), R.id.realtabcontent);	
+		
+		//得到fragment的个数
+		int count = fragmentArray.length;	
+				
+		for(int i = 0; i < count; i++){	
+			//为每一个Tab按钮设置图标、文字和内容
+			TabSpec tabSpec = mTabHost.newTabSpec(mTextviewArray[i]).setIndicator(getTabItemView(i));
+			//将Tab按钮添加进Tab选项卡中
+			mTabHost.addTab(tabSpec, fragmentArray[i], null);
+			//设置Tab按钮的背景
+			mTabHost.getTabWidget().getChildAt(i).setBackgroundResource(R.drawable.selector_tab_background);
+		}
+	}
+				
+	/**
+	 * 给Tab按钮设置图标和文字
+	 */
+	private View getTabItemView(int index){
+		View view = layoutInflater.inflate(R.layout.tab_item_view, null);
+	
+		ImageView imageView = (ImageView) view.findViewById(R.id.imageview);
+		imageView.setImageResource(mImageViewArray[index]);
+		
+		TextView textView = (TextView) view.findViewById(R.id.textview);		
+		textView.setText(mTextviewArray[index]);
+	
+		return view;
+	}
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.main);
-		mFragments = new Fragment[4];
-		fragmentManager = getSupportFragmentManager();
-		mFragments[0] = fragmentManager.findFragmentById(R.id.fragement_main);
-		mFragments[1] = fragmentManager.findFragmentById(R.id.fragement_news);
-		mFragments[2] = fragmentManager.findFragmentById(R.id.fragement_info);
-		mFragments[3] = fragmentManager.findFragmentById(R.id.fragement_more);
-		fragmentTransaction = fragmentManager.beginTransaction().hide(mFragments[0])
-			.hide(mFragments[1]).hide(mFragments[2]).hide(mFragments[3]);
-		fragmentTransaction.show(mFragments[0]).commit();
-		setFragmentIndicator();
-		
-		//网络状态监测服务
-		networkStateIntent =new Intent(MainActivity.this,NetworkStateService.class);
-		startService(networkStateIntent);
-		
-		checkVersion();
-	}
-
-	private void setFragmentIndicator() {
-		main_tab = (RadioGroup) findViewById(R.id.main_tab);
-		main_tab.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-
-			@Override
-			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				fragmentTransaction = fragmentManager.beginTransaction()
-						.hide(mFragments[0]).hide(mFragments[1]).
-						hide(mFragments[2]).hide(mFragments[3]);
-				switch (checkedId) {
-					case R.id.tab_home:
-						fragmentTransaction.show(mFragments[0]).commit();
-						break;
-					case R.id.tab_news:
-						fragmentTransaction.show(mFragments[1]).commit();
-						break;
-					case R.id.tab_info:
-						fragmentTransaction.show(mFragments[2]).commit();
-						break;
-					case R.id.tab_more:
-						fragmentTransaction.show(mFragments[3]).commit();
-						break;
-					default:
-						break;
-				}
-			}
-			
-		});
-	}
-
-    @Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(event.getAction() == KeyEvent.ACTION_DOWN && KeyEvent.KEYCODE_BACK == keyCode) {
 			long currentTime = System.currentTimeMillis();
@@ -113,10 +125,8 @@ public class MainActivity extends FragmentActivity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-
-    
-    
-    @Override
+	
+	@Override
     protected void onDestroy() {
     	super.onDestroy();
     	stopService(networkStateIntent);
@@ -124,9 +134,9 @@ public class MainActivity extends FragmentActivity {
     		stopService(upgradeIntent);
     	}
     }
-    
+	
 	private void checkVersion(){
-		getCurrentVersion();
+		final int curVersionCode = app.getCurrentVersion();
 		final Handler handler = new Handler() {
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
@@ -156,18 +166,6 @@ public class MainActivity extends FragmentActivity {
 		}.start();
 	}
 	
-	/**
-	 * 获取当前客户端版本信息
-	 */
-	private void getCurrentVersion() {
-		try {
-			PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
-			curVersionCode = info.versionCode;
-		} catch (NameNotFoundException e) {
-			e.printStackTrace(System.err);
-		}
-	}
-	
 	private void showAlert(){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         alert.setTitle("软件升级");
@@ -188,5 +186,4 @@ public class MainActivity extends FragmentActivity {
         });
         alert.create().show();
 	}
-    
 }

@@ -47,7 +47,8 @@
             </intent-filter>
         </activity>
         
-        <activity android:name="com.dengmin.app.ui.MainActivity" />
+        <activity android:name="com.dengmin.app.ui.MainActivity" 
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
         <activity android:name="com.dengmin.app.ui.GuideActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         

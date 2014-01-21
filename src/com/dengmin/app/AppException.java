@@ -6,7 +6,7 @@ import java.net.ConnectException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
-import org.apache.commons.httpclient.HttpException;
+import org.apache.http.HttpException;
 
 public class AppException extends Exception implements UncaughtExceptionHandler{
 
