@@ -26,13 +26,10 @@ import android.widget.Toast;
 
 import com.dengmin.app.Action;
 import com.dengmin.app.R;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.dengmin.app.util.ImageCacheUtil;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.assist.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 public class FragmentMain extends Fragment {
 
@@ -45,8 +42,6 @@ public class FragmentMain extends Fragment {
 	private int[] images = { R.drawable.home, R.drawable.b, R.drawable.c,R.drawable.e };
 
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
-	
-	private DisplayImageOptions options;
 	
 	private NetworkStateReceiver networkStateReceiver;
 	
@@ -96,16 +91,6 @@ public class FragmentMain extends Fragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		
-		imageLoader.init(ImageLoaderConfiguration.createDefault(getActivity()));
-		options = new DisplayImageOptions.Builder()
-		.resetViewBeforeLoading(true)
-		.cacheOnDisc(true)
-		.imageScaleType(ImageScaleType.EXACTLY)
-		.bitmapConfig(Bitmap.Config.RGB_565)
-		.considerExifParams(true)
-		.displayer(new FadeInBitmapDisplayer(300))
-		.build();
 		
 		viewPager = (ViewPager) getView().findViewById(R.id.vp);
 		viewPager.setAdapter(new MyAdapter(images));// 设置填充ViewPager页面的适配器
@@ -162,7 +147,7 @@ public class FragmentMain extends Fragment {
 			assert imageLayout != null;
 			ImageView imageView = (ImageView) imageLayout.findViewById(R.id.image);
 			final ProgressBar spinner = (ProgressBar) imageLayout.findViewById(R.id.loading);
-			imageLoader.displayImage("drawable://"+images[position], imageView, options, new SimpleImageLoadingListener() {
+			imageLoader.displayImage("drawable://"+images[position], imageView, ImageCacheUtil.OPTIONS.default_options, new SimpleImageLoadingListener() {
 				@Override
 				public void onLoadingStarted(String imageUri, View view) {
 					spinner.setVisibility(View.VISIBLE);

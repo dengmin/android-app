@@ -4,7 +4,8 @@ import android.app.Application;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
-import cn.jpush.android.api.JPushInterface;
+
+import com.dengmin.app.util.ImageCacheUtil;
 
 public class SystemApplication extends Application {
 
@@ -14,8 +15,7 @@ public class SystemApplication extends Application {
     public void onCreate() {    	     
     	 Log.d(TAG, "onCreate");
          super.onCreate();
-         JPushInterface.setDebugMode(true); 	//设置开启日志,发布时请关闭日志
-         JPushInterface.init(this);     		// 初始化 JPush
+         ImageCacheUtil.init(this);
     }
     
     public int getCurrentVersion() {

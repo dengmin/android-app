@@ -111,13 +111,6 @@ public final class R {
         public static final int more=0x7f040006;
     }
     public static final class style {
-        /** 
-        Base application theme for API 14+. This theme completely replaces
-        AppBaseTheme from BOTH res/values/styles.xml and
-        res/values-v11/styles.xml on API 14+ devices.
-    
- API 14 theme customizations can go here. 
-         */
         public static final int AppBaseTheme=0x7f050000;
         /**  Application theme. 
          */
