@@ -43,7 +43,7 @@
         </activity>
         
         <activity android:name="com.dengmin.app.ui.MainActivity" 
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+            android:theme="@android:style/Theme.NoTitleBar"/>
         <activity android:name="com.dengmin.app.ui.GuideActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         

@@ -58,7 +58,6 @@ public class MainActivity extends FragmentActivity{
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
         app = (SystemApplication)getApplication();
         
         initView();

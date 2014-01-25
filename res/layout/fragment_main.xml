@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
@@ -13,7 +13,7 @@
         <RelativeLayout
             android:id="@+id/network_layout"
             android:layout_width="fill_parent"
-            android:layout_height="45dip"
+            android:layout_height="30dip"
             android:background="#fcf3ee"
             android:orientation="horizontal"
             android:visibility="gone" >
@@ -27,16 +27,7 @@
                 android:layout_marginLeft="5dip"
                 android:src="@drawable/net_warn_icon"
                 />
-
-            <ProgressBar
-                android:id="@+id/main_bar"
-                android:layout_width="30dip"
-                android:layout_height="30dip"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dip"
-                android:visibility="gone" />
-
+           
             <TextView
                 android:id="@+id/main_tip_txt"
                 android:layout_width="wrap_content"
@@ -55,15 +46,9 @@
                 android:text="查看详情"
                 android:textSize="11sp" />
         </RelativeLayout>
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/vp"
-            android:layout_width="fill_parent"
-            android:layout_height="150dip"
-            android:layout_marginLeft="10dip"
-            android:layout_marginRight="10dip"
-            android:layout_marginTop="10dip" />
-
+		
+		<include layout="@layout/rollimage" />
+		
         <TableLayout
             android:id="@+id/tableLayout_travel"
             android:layout_width="fill_parent"
@@ -181,4 +166,4 @@
         </TableLayout>
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>
