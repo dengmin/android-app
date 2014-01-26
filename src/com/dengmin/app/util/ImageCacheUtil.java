@@ -19,6 +19,7 @@ public class ImageCacheUtil {
 		public DisplayImageOptions default_options = new DisplayImageOptions.Builder()
 		.resetViewBeforeLoading(true)
 		.cacheOnDisc(true)
+		.cacheInMemory(true)
 		.imageScaleType(ImageScaleType.EXACTLY)
 		.bitmapConfig(Bitmap.Config.RGB_565)
 		.considerExifParams(true)

@@ -1,6 +1,6 @@
 package com.dengmin.app.ui;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -23,7 +23,7 @@ public class RollViewPager extends ViewPager {
 	
 	private Context context;
 	private int currentItem;
-	private ArrayList<View> dots;
+	private List<View> dots;
 	private TextView title;
 	private String[] titles;
 	private int[] resImageIds;
@@ -84,7 +84,7 @@ public class RollViewPager extends ViewPager {
 		super(context);
 	}
 	
-	public RollViewPager(Context context, ArrayList<View> dots,
+	public RollViewPager(Context context, List<View> dots,
 			OnPagerClickCallback onPagerClickCallback) {
 		super(context);
 		this.context = context;
@@ -97,7 +97,7 @@ public class RollViewPager extends ViewPager {
 	public void setResImageIds(int[] resImageIds) {
 		this.resImageIds = resImageIds;
 	}
-
+	
 	public void setTitle(TextView title, String[] titles) {
 		this.title = title;
 		this.titles = titles;
@@ -120,15 +120,21 @@ public class RollViewPager extends ViewPager {
 	}
 
 	class MyOnPageChangeListener implements OnPageChangeListener {
-		int oldPosition = 0;
+		//记录上一次的位置
+		private int oldPosition = 0;
 
 		@Override
 		public void onPageSelected(int position) {
 			currentItem = position;
-			if (title != null)
+			//设置图片的标题
+			if (title != null){
 				title.setText(titles[position]);
+			}
+			//替换小圆点的图片
 			if (dots != null && dots.size() > 0) {
+				//当前为选中
 				dots.get(position).setBackgroundResource(R.drawable.point_select);
+				//上一次的变灰
 				dots.get(oldPosition).setBackgroundResource(R.drawable.point_normal);
 			}
 			oldPosition = position;

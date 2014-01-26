@@ -1,6 +1,7 @@
 package com.dengmin.app.fragment;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,7 +14,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,12 +27,13 @@ import com.dengmin.app.ui.RollViewPager.OnPagerClickCallback;
 
 public class FragmentMain extends Fragment {
 
-	private int[] images = { R.drawable.home, R.drawable.b, R.drawable.c,R.drawable.e };
-	private String[] titles;
-	private ArrayList<View> dots;
+	private int[] images = { R.drawable.a, R.drawable.b, R.drawable.c,R.drawable.e };
+	private String[] titles = new String[] { "标题1", "标题2", "标题3", "标题4","标题5" };
+	private List<View> dots = new ArrayList<View>();
 	private TextView title;
 	private LinearLayout mViewPagerLay;
-
+	private LinearLayout dotLayout; //小圆点的布局
+	
 	private NetworkStateReceiver networkStateReceiver;
 	
 	//用来接受从service中监测到的网络状态
@@ -69,27 +73,33 @@ public class FragmentMain extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		title = (TextView) getView().findViewById(R.id.title);
 		mViewPagerLay = (LinearLayout) getView().findViewById(R.id.viewpager);
+		dotLayout = (LinearLayout) getView().findViewById(R.id.dot_layout);
 		
 		networkStateReceiver = new NetworkStateReceiver();
 		getActivity().registerReceiver(networkStateReceiver, new IntentFilter(Action.NETWORK_STATE));
 
-		titles = new String[] { "标题1", "标题2", "标题3", "标题4","标题5" };
+		//只有一张图片就不需要添加小圆点了
+		if(images.length >  1){
+			for(int i = 0; i< images.length; i++){
+				//新建一个imageView
+				ImageView dotView = new ImageView(getActivity());
+				LayoutParams layoutParams = new LayoutParams(5, 5);
+				layoutParams.setMargins(2, 0, 2, 0);
+				dotView.setLayoutParams(layoutParams);
+				dotView.setBackgroundResource(R.drawable.point_normal);
+				dotLayout.addView(dotView);
+				dots.add(dotView);
+			}
+		}
 		
-		// 用来显示的点
-		dots = new ArrayList<View>();
-		dots.add(getView().findViewById(R.id.dot_0));
-		dots.add(getView().findViewById(R.id.dot_1));
-		dots.add(getView().findViewById(R.id.dot_2));
-		dots.add(getView().findViewById(R.id.dot_3));
-		
-		RollViewPager mViewPager = new RollViewPager(getActivity(), dots,
-				new OnPagerClickCallback() {
-					@Override
-					public void onPagerClick(int position) {
-						Toast.makeText(getActivity(),"第" + position + "张图片被点击了",Toast.LENGTH_LONG).show();
-					}
+		RollViewPager mViewPager = new RollViewPager(getActivity(), dots,new OnPagerClickCallback() {
+				@Override
+				public void onPagerClick(int position) {
+					Toast.makeText(getActivity(),"第" + position + "张图片被点击了",Toast.LENGTH_LONG).show();
 				}
+			}
 		);
+		
 		mViewPager.setResImageIds(images);
 		mViewPager.setTitle(title, titles);
 		mViewPager.startRoll();

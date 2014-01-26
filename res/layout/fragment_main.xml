@@ -11,9 +11,8 @@
         android:orientation="vertical" >
 
 		<include layout="@layout/rollimage" />
-		
+        		
         <TableLayout
-            android:id="@+id/tableLayout_travel"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
 
@@ -42,7 +41,7 @@
                         android:padding="5dip"
                         android:text="新品上架"
                         android:textColor="#ffffff"
-                        android:textSize="15dip" />
+                        android:textSize="@dimen/flat_text_size" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -54,7 +53,7 @@
                         android:padding="5dip"
                         android:text="待发货"
                         android:textColor="#ffffff"
-                        android:textSize="15dip" />
+                        android:textSize="@dimen/flat_text_size" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -67,7 +66,7 @@
                         android:padding="5dip"
                         android:text="待付款"
                         android:textColor="#ffffff"
-                        android:textSize="15dip" />
+                        android:textSize="@dimen/flat_text_size" />
                 </LinearLayout>
                 <!-- 2 -->
 
@@ -87,7 +86,7 @@
                         android:padding="10dip"
                         android:text="商品"
                         android:textColor="#ffffff"
-                        android:textSize="15dip" />
+                        android:textSize="@dimen/flat_text_size" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -99,7 +98,7 @@
                         android:padding="5dip"
                         android:text="合作伙伴"
                         android:textColor="#ffffff"
-                        android:textSize="15dip" />
+                        android:textSize="@dimen/flat_text_size" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -111,7 +110,7 @@
                         android:padding="5dip"
                         android:text="统计查询"
                         android:textColor="#ffffff"
-                        android:textSize="15dip" />
+                        android:textSize="@dimen/flat_text_size" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -123,7 +122,7 @@
                         android:padding="5dip"
                         android:text="评价信息"
                         android:textColor="#ffffff"
-                        android:textSize="15dip" />
+                        android:textSize="@dimen/flat_text_size" />
                 </LinearLayout>
             </TableRow>
         </TableLayout>
