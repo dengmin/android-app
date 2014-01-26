@@ -27,7 +27,7 @@ public class FragmentNews extends Fragment {
 		title_text = (TextView) getView().findViewById(R.id.title_text);
 		title_text.setText("信息");
 		btn_right = (Button) getView().findViewById(R.id.btn_title_right);
-		btn_right.setText("添加");
+		btn_right.setText("群聊");
 		btn_right.setVisibility(View.VISIBLE);
 	}
 }

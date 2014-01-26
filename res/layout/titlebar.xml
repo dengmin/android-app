@@ -8,7 +8,7 @@
 
     <Button
         android:id="@+id/btn_title_left"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="30dp"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="0dp"
@@ -16,20 +16,22 @@
         android:gravity="center"
         android:text="@string/back"
         android:visibility="invisible"
-        android:textSize="14sp"
+        android:textSize="15sp"
+        android:textColor="#fff"
         android:textAlignment="center"
         />
 
     <Button
         android:id="@+id/btn_title_right"
-        android:layout_width="wrap_content"
-        android:layout_height="30dp"
+        android:layout_width="67dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="0dp"
+        android:layout_marginRight="5dp"
         android:background="@drawable/title_button_right"
         android:gravity="center"
         android:text="@string/back"
-        android:textSize="14sp"
+        android:textColor="#fff"
+        android:textSize="15sp"
         android:visibility="invisible" />
 
     <TextView

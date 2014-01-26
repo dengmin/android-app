@@ -86,7 +86,11 @@ public class FragmentMain extends Fragment {
 				LayoutParams layoutParams = new LayoutParams(5, 5);
 				layoutParams.setMargins(2, 0, 2, 0);
 				dotView.setLayoutParams(layoutParams);
-				dotView.setBackgroundResource(R.drawable.point_normal);
+				if(i == 0){
+					dotView.setBackgroundResource(R.drawable.point_select);
+				}else{
+					dotView.setBackgroundResource(R.drawable.point_normal);
+				}
 				dotLayout.addView(dotView);
 				dots.add(dotView);
 			}
