@@ -32,8 +32,6 @@ public class FragmentMain extends Fragment {
 
 	private NetworkStateReceiver networkStateReceiver;
 	
-	private View networkStatelayout;
-	
 	//用来接受从service中监测到的网络状态
     private class NetworkStateReceiver extends BroadcastReceiver {
 		@Override
@@ -53,9 +51,6 @@ public class FragmentMain extends Fragment {
 			super.handleMessage(msg);
 			switch(msg.what){
 			case -1:
-				networkStatelayout.setVisibility(View.VISIBLE);
-				TextView tipText = (TextView)getActivity().findViewById(R.id.main_tip_txt);
-				tipText.setText("网络连接不可用,请稍后重试!");
 				Toast.makeText(getActivity(), "当前网络连接不可用,请检查你的网络设置.", Toast.LENGTH_LONG).show(); 
 				break;
 			}
@@ -74,7 +69,6 @@ public class FragmentMain extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		title = (TextView) getView().findViewById(R.id.title);
 		mViewPagerLay = (LinearLayout) getView().findViewById(R.id.viewpager);
-		networkStatelayout = getView().findViewById(R.id.network_layout);
 		
 		networkStateReceiver = new NetworkStateReceiver();
 		getActivity().registerReceiver(networkStateReceiver, new IntentFilter(Action.NETWORK_STATE));

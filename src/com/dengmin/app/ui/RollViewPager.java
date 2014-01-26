@@ -44,12 +44,15 @@ public class RollViewPager extends ViewPager {
 				handler.removeCallbacksAndMessages(null);
 				break;
 			case MotionEvent.ACTION_MOVE:
+				getParent().requestDisallowInterceptTouchEvent(true);
 				handler.removeCallbacks(viewPagerTask);
 				break;
 			case MotionEvent.ACTION_CANCEL:
+				getParent().requestDisallowInterceptTouchEvent(false);
 				startRoll();
 				break;
 			case MotionEvent.ACTION_UP:
+				getParent().requestDisallowInterceptTouchEvent(true);
 				long duration = System.currentTimeMillis() - start;
 				if (duration <= 400) {
 					if(onPagerClickCallback!=null)onPagerClickCallback.onPagerClick(currentItem);

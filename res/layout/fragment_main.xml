@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
@@ -10,43 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-        <RelativeLayout
-            android:id="@+id/network_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="30dip"
-            android:background="#fcf3ee"
-            android:orientation="horizontal"
-            android:visibility="gone" >
-
-            <ImageView
-                android:id="@+id/main_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dip"
-                android:src="@drawable/net_warn_icon"
-                />
-           
-            <TextView
-                android:id="@+id/main_tip_txt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="40dip" />
-
-            <Button
-                android:id="@+id/btn"
-                android:layout_width="wrap_content"
-                android:layout_height="33dip"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="10dip"
-                android:gravity="center"
-                android:text="查看详情"
-                android:textSize="11sp" />
-        </RelativeLayout>
-		
 		<include layout="@layout/rollimage" />
 		
         <TableLayout
@@ -166,4 +129,4 @@
         </TableLayout>
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
